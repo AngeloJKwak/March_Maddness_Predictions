@@ -50,7 +50,8 @@ master$team_2<-as.character(master$team_2)
 ranks$DayNum<-ranks$RankingDayNum+1
 
 
-system_lst<-c("POM","PIG","SAG","MOR","DOK")
+#Create columns for different ranking systems
+system_lst<-c("POM","PIG","SAG","MOR","DOK","MAS","WIL","FSH","KPK","TRK","LEF")
 
 for (i in 1:length(system_lst)){
   
@@ -85,14 +86,8 @@ for (i in 1:length(system_lst)){
 
 master<-master[order(Season,DayNum)]
 
-master<-master[,.(id_num,team_1,team_2,POM_dif,PIG_dif, SAG_dif,MOR_dif,DOK_dif,result)]
 
-# make all the NA values zero, there may be a better way to deal with NAs
-#master[is.na(master$POM_dif)]$POM_dif<-0
-#master[is.na(master$PIG_dif)]$PIG_dif<-0
-#master[is.na(master$SAG_dif)]$SAG_dif<-0
-#master[is.na(master$MOR_dif)]$MOR_dif<-0
-#master[is.na(master$DOK_dif)]$DOK_dif<-0
+master<-master[,.(id_num,team_1,team_2,POM_dif,PIG_dif, SAG_dif,MOR_dif,DOK_dif,MAS_dif,WIL_dif,FSH_dif,KPK_dif,TRK_dif,LEF_dif,result)]
 
 #make all NA values be omitted
 master <- master[!is.na(master$POM_dif)]
@@ -100,12 +95,13 @@ master <- master[!is.na(master$PIG_dif)]
 master <- master[!is.na(master$SAG_dif)]
 master <- master[!is.na(master$MOR_dif)]
 master <- master[!is.na(master$DOK_dif)]
+master <- master[!is.na(master$MAS_dif)]
+master <- master[!is.na(master$WIL_dif)]
+master <- master[!is.na(master$FSH_dif)]
+master <- master[!is.na(master$KPK_dif)]
+master <- master[!is.na(master$LEF_dif)]
+master <- master[!is.na(master$TRK_dif)]
 
-#master <- na.omit(master)
-
-################
-#add in your individual statistic diffs here
-################
 
 test<-master[result==0.5]
 train<-master[result==1]
@@ -124,6 +120,12 @@ train_b$SAG_dif<-train_b$SAG_dif*-1
 train_b$MOR_dif<-train_b$MOR_dif*-1
 train_b$DOK_dif<-train_b$DOK_dif*-1
 train_b$POM_dif<-train_b$POM_dif*-1
+train_b$MAS_dif<-train_b$MAS_dif*-1
+train_b$WIL_dif<-train_b$WIL_dif*-1
+train_b$FSH_dif<-train_b$FSH_dif*-1
+train_b$KPK_dif<-train_b$KPK_dif*-1
+train_b$LEF_dif<-train_b$LEF_dif*-1
+train_b$TRK_dif<-train_b$TRK_dif*-1
 
 train<-rbind(train_a,train_b)
 

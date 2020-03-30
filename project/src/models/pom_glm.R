@@ -56,9 +56,6 @@ gl_model
 # make a submision file #
 #########################
 
-#our file needs to follow the example submission file format.
-#we need the rows to be in the correct order
-
 example_sub$result<-pred
 
 #now we can write out a submission
